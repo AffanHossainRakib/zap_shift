@@ -10,7 +10,9 @@
   name: "light";
   default: true;
   --color-primary: #caeb66;
+  --color-primary-content: #1f1f1f;
   --color-secondary: #03373d;
+  --color-secondary-content: #606060;
 }
 
 body {
