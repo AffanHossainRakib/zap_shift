@@ -37,7 +37,9 @@ const Footer = () => {
       </aside>
 
       <div>
-        <ul className="flex flex-row gap-9 items-center">{links}</ul>
+        <ul className="flex flex-row gap-9 justify-center items-center flex-wrap ">
+          {links}
+        </ul>
       </div>
       <nav>
         <div className="grid grid-flow-col gap-4">
