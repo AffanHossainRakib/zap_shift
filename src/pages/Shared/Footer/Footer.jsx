@@ -1,10 +1,31 @@
 import Logo from "../../../components/Logo/Logo";
 import { FaFacebook, FaX, FaYoutube } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
+import { NavLink } from "react-router";
 
 const Footer = () => {
+  const links = (
+    <>
+      <li>
+        <NavLink to="/services">Services</NavLink>
+      </li>
+      <li>
+        <NavLink to="/coverage">Coverage</NavLink>
+      </li>
+      <li>
+        <NavLink to="/about">About Us</NavLink>
+      </li>
+      <li>
+        <NavLink to="/pricing">Pricing</NavLink>
+      </li>
+      <li>
+        <NavLink to="/blog">Blog</NavLink>
+      </li>
+    </>
+  );
+
   return (
-    <footer className="footer footer-horizontal bg-[#0B0B0B] text-primary-content footer-center p-10 rounded-3xl">
+    <footer className="footer footer-horizontal bg-[#0B0B0B] text-[#DADADA] footer-center p-10 rounded-3xl">
       <aside className="max-w-3xl mx-auto">
         <Logo />
 
@@ -14,6 +35,10 @@ const Footer = () => {
           time, every time.
         </p>
       </aside>
+
+      <div>
+        <ul className="flex flex-row gap-9 items-center">{links}</ul>
+      </div>
       <nav>
         <div className="grid grid-flow-col gap-4">
           <FaFacebook className="w-6 h-6" />
