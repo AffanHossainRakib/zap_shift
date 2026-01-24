@@ -27,8 +27,8 @@ const Banner = () => {
         </div>
       </Carousel>
 
-      {/* Buttons overlay */}
-      <div className="absolute hidden sm:flex md:bottom-8 md:left-8 lg:bottom-12 lg:left-12 z-10 sm:flex-row gap-2 sm:gap-4">
+      {/* Buttons overlay - smaller on mobile */}
+      <div className="absolute bottom-2 -left-4 sm:bottom-6 sm:left-6 md:bottom-8 md:left-8 lg:bottom-12 lg:left-12 z-10 flex gap-2 sm:gap-4 text-xs sm:text-sm md:text-base scale-75 sm:scale-90 md:scale-100">
         <PrimaryBtn to="" message="Track your parcel" />
         <SecondaryBtn to="" message="Be a Rider" />
       </div>
