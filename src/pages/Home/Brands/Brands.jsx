@@ -24,7 +24,7 @@ const Brands = () => {
   return (
     <div className="container mx-auto p-4 my-4 sm:my-12 rounded-3xl ">
       <h3 className="sm:text-3xl font-extrabold text-center mb-8">
-        We've helped thousands of sales teams
+        We've helped thousands of sales teams
       </h3>
       <Swiper
         slidesPerView={4}
