@@ -1,9 +1,22 @@
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useLoaderData } from "react-router";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
+import L from "leaflet";
+import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
 
 const Coverage = () => {
+  // Fix for missing marker icons in production
+  useEffect(() => {
+    delete L.Icon.Default.prototype._getIconUrl;
+    L.Icon.Default.mergeOptions({
+      iconRetinaUrl: markerIcon2x,
+      iconUrl: markerIcon,
+      shadowUrl: markerShadow,
+    });
+  }, []);
   const warehouses = useLoaderData();
   const mapRef = useRef(null);
 
@@ -14,8 +27,8 @@ const Coverage = () => {
       wh.district.toLowerCase().includes(location),
     );
     if (district) {
-      const cordinates = [district.latitude, district.longitude];
-      mapRef.current.flyTo(cordinates, 12);
+      const coordinates = [district.latitude, district.longitude];
+      mapRef.current.flyTo(coordinates, 12);
     }
   };
 
