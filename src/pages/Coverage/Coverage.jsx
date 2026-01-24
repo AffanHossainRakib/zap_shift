@@ -27,7 +27,7 @@ const Coverage = () => {
 
       {/* Search  */}
       <div className="pt-6">
-        <form onSubmit={handleSearch} className="flex ">
+        <form onSubmit={handleSearch} className="flex">
           <label className="input">
             <svg
               className="h-[1em] opacity-50"
