@@ -8,7 +8,7 @@ const PrimaryBtn = ({ to, message }) => {
         <button className="btn btn-primary text-primary-content font-bold">
           {message}
         </button>
-        <BsArrowUpRightCircleFill className="h-10 w-10 bg-primary rounded-full hidden md:block" />
+        <BsArrowUpRightCircleFill className="sm:h-10 sm:w-10 h-4 w-4 bg-primary rounded-full" />
       </Link>
     </>
   );

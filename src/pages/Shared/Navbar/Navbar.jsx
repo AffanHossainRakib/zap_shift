@@ -25,7 +25,7 @@ const Navbar = () => {
     </>
   );
   return (
-    <div className="sticky top-4 z-50 ">
+    <div className="sticky top-4 z-50 container mx-auto px-4">
       <div className="navbar bg-white shadow-sm rounded-lg">
         <div className="navbar-start">
           <div className="dropdown">
@@ -48,10 +48,8 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <div className="mr-2">
+          <div className="flex gap-2">
             <SecondaryBtn to="/login" message="Sign In" />
-          </div>
-          <div >
             <PrimaryBtn to="/register" message="Sign Up" />
           </div>
         </div>
