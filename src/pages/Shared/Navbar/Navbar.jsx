@@ -5,27 +5,34 @@ import SecondaryBtn from "../../../components/SecondaryBtn/SecondaryBtn";
 import { VscThreeBars } from "react-icons/vsc";
 
 const Navbar = () => {
+  const navLinks = [
+    { to: "/services", label: "Services" },
+    { to: "/coverage", label: "Coverage" },
+    { to: "/about", label: "About Us" },
+    { to: "/pricing", label: "Pricing" },
+    { to: "/blog", label: "Blog" },
+  ];
+
   const links = (
     <>
-      <li>
-        <NavLink to="/services">Services</NavLink>
-      </li>
-      <li>
-        <NavLink to="/coverage">Coverage</NavLink>
-      </li>
-      <li>
-        <NavLink to="/about">About Us</NavLink>
-      </li>
-      <li>
-        <NavLink to="/pricing">Pricing</NavLink>
-      </li>
-      <li>
-        <NavLink to="/blog">Blog</NavLink>
-      </li>
+      {navLinks.map(({ to, label }) => (
+        <li key={to}>
+          <NavLink
+            to={to}
+            className={({ isActive }) =>
+              isActive
+                ? "bg-primary text-primary-content rounded-3xl px-4 py-2"
+                : ""
+            }
+          >
+            {label}
+          </NavLink>
+        </li>
+      ))}
     </>
   );
   return (
-    <div className="sticky top-4 z-5000 container mx-auto px-4">
+    <div className="sticky top-4 z-500 container mx-auto px-4">
       <div className="navbar bg-white shadow-sm rounded-lg">
         <div className="navbar-start">
           <div className="dropdown">
