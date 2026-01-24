@@ -25,7 +25,7 @@ const Banner = () => {
             <img
               src={banner}
               alt={`Banner ${index + 1}`}
-              className="w-full h-full object-cover sm:object-contain sm:h-auto"
+              className="w-full h-full object-cover object-left sm:object-contain sm:object-center sm:h-auto rounded-3xl"
             />
           </div>
         ))}
