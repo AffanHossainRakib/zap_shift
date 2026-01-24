@@ -6,6 +6,7 @@ import HowItWorks from "../HowItWorks/HowItWorks";
 import Offer from "../Offer/Offer";
 import Reviews from "../Reviews/Reviews";
 import Services from "../Services/Services";
+import ScrollToTop from "../../../components/ScrollToTop/ScrollToTop";
 
 const reviewsPromiise = fetch("/reviews.json").then((res) => res.json());
 
@@ -20,6 +21,7 @@ const Home = () => {
       <Offer />
       <Reviews reviewsPromise={reviewsPromiise} />
       <FAQs />
+      <ScrollToTop />
     </div>
   );
 };
