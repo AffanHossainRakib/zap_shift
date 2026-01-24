@@ -48,10 +48,8 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <div className="mr-2">
+          <div className="flex gap-2">
             <SecondaryBtn to="/login" message="Sign In" />
-          </div>
-          <div >
             <PrimaryBtn to="/register" message="Sign Up" />
           </div>
         </div>
