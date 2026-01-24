@@ -1,9 +1,23 @@
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useLoaderData } from "react-router";
+import { useRef } from "react";
 
 const Coverage = () => {
   const warehouses = useLoaderData();
+  const mapRef = useRef(null);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const location = e.target.location.value.trim().toLowerCase();
+    const district = warehouses.find((wh) =>
+      wh.district.toLowerCase().includes(location),
+    );
+    if (district) {
+      const cordinates = [district.latitude, district.longitude];
+      mapRef.current.flyTo(cordinates, 12);
+    }
+  };
 
   return (
     <section className="container mx-auto my-10 bg-white p-5 sm:p-10 rounded-3xl shadow-lg">
@@ -11,14 +25,50 @@ const Coverage = () => {
         We are available in 64 districts
       </h2>
 
-          <div></div>
-          
+      {/* Search  */}
+      <div className="pt-6">
+        <form onSubmit={handleSearch} className="flex ">
+          <label className="input">
+            <svg
+              className="h-[1em] opacity-50"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <g
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                strokeWidth="2.5"
+                fill="none"
+                stroke="currentColor"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+              </g>
+            </svg>
+            <input
+              name="location"
+              type="search"
+              className="grow"
+              placeholder="Search"
+            />
+          </label>
+          <button type="submit" className="btn btn-primary ml-2">
+            Search
+          </button>
+        </form>
+      </div>
+
       <div className="mt-10 w-full h-100 sm:h-150">
         <MapContainer
-          center={warehouses.length ? [warehouses[0].latitude, warehouses[0].longitude] : [0, 0]}
+          center={
+            warehouses.length
+              ? [warehouses[0].latitude, warehouses[0].longitude]
+              : [0, 0]
+          }
           zoom={7}
           scrollWheelZoom={true}
           className="w-full h-full rounded-lg shadow-lg"
+          ref={mapRef}
         >
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
