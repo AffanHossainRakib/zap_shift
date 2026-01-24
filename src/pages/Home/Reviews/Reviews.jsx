@@ -17,7 +17,7 @@ const Reviews = ({ reviewsPromise }) => {
       <div className="flex flex-col items-center mb-24 ">
         <img src={trollyImage} alt="Customer Top" className="mb-8" />
         <div className="max-w-3xl text-center">
-          <h3 className="text-2xl sm:text-4xl font-extrabold mb-6">
+          <h3 className="text-2xl sm:text-4xl font-extrabold mb-6 text-secondary">
             What our customers are saying
           </h3>
           <p className="text-gray-600 sm:text-sm text-xs">
