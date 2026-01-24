@@ -8,7 +8,7 @@ import moonstar from "../../../assets/brands/moonstar.png";
 import randstad from "../../../assets/brands/randstad.png";
 import star from "../../../assets/brands/star.png";
 import start_people from "../../../assets/brands/start_people.png";
-import { Autoplay } from "swiper/modules";
+import { Autoplay, FreeMode } from "swiper/modules";
 
 const brandLogos = [
   amazon_vector,
@@ -31,15 +31,15 @@ const Brands = () => {
         centeredSlides={true}
         spaceBetween={30}
         grabCursor={true}
+        speed={5000}
         autoplay={{
-          delay: 2500,
+          delay: 0,
           disableOnInteraction: false,
         }}
         loop={true}
-        pagination={{
-          clickable: true,
-        }}
-        modules={[Autoplay]}
+        freeMode={true}
+        freeModeMomentum={false}
+        modules={[Autoplay, FreeMode]}
         className="mySwiper"
       >
         {brandLogos.map((logo, index) => (
