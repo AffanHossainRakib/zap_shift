@@ -2,7 +2,6 @@ import Logo from "../../../components/Logo/Logo";
 import { NavLink } from "react-router";
 import PrimaryBtn from "../../../components/PrimaryBtn/PrimaryBtn";
 import SecondaryBtn from "../../../components/SecondaryBtn/SecondaryBtn";
-import { BsArrowUpRightCircleFill } from "react-icons/bs";
 import { VscThreeBars } from "react-icons/vsc";
 
 const Navbar = () => {
@@ -52,9 +51,8 @@ const Navbar = () => {
           <div className="mr-2">
             <SecondaryBtn to="/login" message="Sign In" />
           </div>
-          <div className="flex items-center">
+          <div >
             <PrimaryBtn to="/register" message="Sign Up" />
-            <BsArrowUpRightCircleFill className="h-10 w-10 bg-primary rounded-full hidden md:block" />
           </div>
         </div>
       </div>
