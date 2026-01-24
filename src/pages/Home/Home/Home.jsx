@@ -1,5 +1,6 @@
 import Banner from "../Banner/Banner";
 import Brands from "../Brands/Brands";
+import FAQs from "../FAQs/FAQs";
 import Features from "../Features/Features";
 import HowItWorks from "../HowItWorks/HowItWorks";
 import Offer from "../Offer/Offer";
@@ -18,6 +19,7 @@ const Home = () => {
       <Features />
       <Offer />
       <Reviews reviewsPromise={reviewsPromiise} />
+      <FAQs />
     </div>
   );
 };
