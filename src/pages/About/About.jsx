@@ -56,11 +56,13 @@ const About = () => {
               <input
                 type="radio"
                 name="my_tabs_7"
-                className="tab"
+                className="tab font-semibold"
                 aria-label={item.title}
                 defaultChecked={item.title === "Story"}
               />
               <div className="tab-content bg-base-100 border-base-300 p-6 text-justify">
+                {item.description} <br /> <br />
+                {item.description} <br /> <br />
                 {item.description}
               </div>
             </React.Fragment>
