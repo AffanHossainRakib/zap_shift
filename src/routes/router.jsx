@@ -3,6 +3,7 @@ import RootLayout from "../layouts/RootLayout";
 import Home from "../pages/Home/Home/Home";
 import Coverage from "../pages/Coverage/Coverage";
 import ErrorPage from "../pages/Shared/ErrorPage.jsx/ErrorPage";
+import About from "../pages/About/About";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
         path: "coverage",
         Component: Coverage,
         loader: () => fetch("/warehouses.json").then((res) => res.json()),
+      },
+      {
+        path: "about",
+        Component: About,
       },
       {
         path: "*",
