@@ -1,4 +1,4 @@
-import PrimaryBtn from "../../components/PrimaryBtn/PrimaryBtn";
+import PrimaryBtn from "../../../components/PrimaryBtn/PrimaryBtn";
 
 const ErrorPage = () => {
   return (

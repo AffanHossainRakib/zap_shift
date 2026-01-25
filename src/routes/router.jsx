@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router";
 import RootLayout from "../layouts/RootLayout";
 import Home from "../pages/Home/Home/Home";
 import Coverage from "../pages/Coverage/Coverage";
-import ErrorPage from "../pages/ErrorPage.jsx/ErrorPage";
+import ErrorPage from "../pages/Shared/ErrorPage.jsx/ErrorPage";
 
 const router = createBrowserRouter([
   {
