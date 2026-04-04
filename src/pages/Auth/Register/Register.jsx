@@ -13,8 +13,8 @@ const Register = () => {
     registerUser(data.email, data.password)
       .then((userCredential) => {
         // Registration successful
-        // const user = userCredential.user;
-        // console.log("User registered:", user);
+        const user = userCredential.user;
+        console.log("User registered:", user);
       })
       .catch((error) => {
         // Handle registration errors
@@ -43,9 +43,7 @@ const Register = () => {
                 required: true,
               })}
             />
-            {errors.email && (
-              <p className="text-red-500 ">This field is required</p>
-            )}
+            {errors.email && <p className="text-red-500 ">Email is required</p>}
           </>
 
           {/* Password Field */}
@@ -60,14 +58,16 @@ const Register = () => {
                 minLength: 6,
               })}
             />
-            {errors.password?.type === "required" && (
-              <p className="text-red-500">This field is required</p>
-            )}
-            {errors.password?.type === "minLength" && (
-              <p className="text-red-500">
-                Password must be at least 6 characters
-              </p>
-            )}
+            <>
+              {errors.password?.type === "required" && (
+                <p className="text-red-500">Password is required</p>
+              )}
+              {errors.password?.type === "minLength" && (
+                <p className="text-red-500">
+                  Password must be at least 6 characters
+                </p>
+              )}
+            </>
           </>
           <button className="btn btn-primary mt-4">Register</button>
         </fieldset>
