@@ -81,7 +81,7 @@ const Login = () => {
       <p className="text-gray-500 mt-4 text-sm">
         Don't have any account?{" "}
         <Link to="/register" state={location.state} className="text-[#8fa748]">
-          Sign up
+          Register
         </Link>
       </p>
       <SocialLogin signInMethod="Login" />
