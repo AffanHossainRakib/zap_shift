@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
 import SocialLogin from "../SocialLogin/SocialLogin";
-import { Link, useLocation, useNavigate } from "react-router";
+import { Link, Navigate, useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
 
 const Login = () => {
@@ -19,7 +19,7 @@ const Login = () => {
       email: prefilledEmail,
     },
   });
-  const { signInUser } = useAuth();
+  const { signInUser, user } = useAuth();
   const emailValue = watch("email");
 
   const handleLogin = (data) => {
@@ -35,6 +35,10 @@ const Login = () => {
         }
       });
   };
+
+  if (user) {
+    return <Navigate to={location.state?.from || "/"} replace />;
+  }
 
   return (
     <div className="container mx-auto px-8 sm:px-16 py-20 sm:py-40 bg-white rounded-lg shadow-md">

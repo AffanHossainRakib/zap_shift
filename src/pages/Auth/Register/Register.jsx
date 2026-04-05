@@ -1,9 +1,10 @@
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
 import SocialLogin from "../SocialLogin/SocialLogin";
-import { Link, useLocation, useNavigate } from "react-router";
+import { Link, Navigate, useLocation, useNavigate } from "react-router";
 import axios from "axios";
 import { toast } from "sonner";
+import LoadingPage from "../../Shared/LoadingPage/LoadingPage";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const Register = () => {
   });
   const emailValue = watch("email");
 
-  const { registerUser, updateUserProfile } = useAuth();
+  const { registerUser, updateUserProfile, user } = useAuth();
 
   const handleRegistration = (data) => {
     registerUser(data.email, data.password)
@@ -47,6 +48,10 @@ const Register = () => {
         toast.error("Registration error:", error);
       });
   };
+
+  if (user) {
+    return <Navigate to={location.state?.from || "/"} replace />;
+  }
 
   return (
     <div className="container mx-auto px-8 sm:px-16 py-20 bg-white rounded-lg shadow-md">
