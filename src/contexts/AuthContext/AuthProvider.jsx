@@ -7,6 +7,8 @@ import {
   signOut,
   updateProfile,
   sendPasswordResetEmail,
+  verifyPasswordResetCode,
+  confirmPasswordReset,
 } from "firebase/auth";
 import { AuthContext } from "./AuthContext";
 import { auth } from "../../firebase/firebase.init";
@@ -44,6 +46,15 @@ const AuthProvider = ({ children }) => {
   const passwordResetEmail = (email) => {
     return sendPasswordResetEmail(auth, email);
   };
+
+  const verifyResetCode = (oobCode) => {
+    return verifyPasswordResetCode(auth, oobCode);
+  };
+
+  const confirmNewPassword = (oobCode, newPassword) => {
+    return confirmPasswordReset(auth, oobCode, newPassword);
+  };
+
   // observe user auth state change
   useEffect(() => {
     const unSubscrbe = onAuthStateChanged(auth, (currentUser) => {
@@ -64,6 +75,8 @@ const AuthProvider = ({ children }) => {
     signInwithGoogle,
     logOut,
     passwordResetEmail,
+    verifyResetCode,
+    confirmNewPassword,
   };
 
   return (

@@ -10,6 +10,7 @@ import ErrorPage from "../pages/Shared/ErrorPage/ErrorPage";
 import PrivateRoute from "./PrivateRoute";
 import Rider from "../pages/Rider/Rider";
 import ForgotPassword from "../pages/Auth/ForgotPassword/ForgotPassword";
+import ResetPassword from "../pages/Auth/ResetPassword/ResetPassword";
 
 const router = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
       {
         path: "forgot-password",
         Component: ForgotPassword,
+      },
+      {
+        path: "reset-password",
+        Component: ResetPassword,
       },
     ],
   },
