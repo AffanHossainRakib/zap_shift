@@ -5,14 +5,15 @@ import SecondaryBtn from "../../../components/SecondaryBtn/SecondaryBtn";
 import { VscThreeBars } from "react-icons/vsc";
 import useAuth from "../../../hooks/useAuth";
 import { IoLogOutOutline } from "react-icons/io5";
+import { toast } from "sonner";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const handleLogout = () => {
     logOut()
-      .then()
+      .then(toast.success("Logged out successfully."))
       .catch((error) => {
-        console.error("Logout error:", error);
+        toast.error("Logout error:", error);
       });
   };
 

@@ -2,17 +2,25 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import { Link, useLocation, useNavigate } from "react-router";
+import { toast } from "sonner";
 
 const Login = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const prefilledEmail = location.state?.email || "";
 
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      email: prefilledEmail,
+    },
+  });
   const { signInUser } = useAuth();
+  const emailValue = watch("email");
 
   const handleLogin = (data) => {
     signInUser(data.email, data.password)
@@ -20,7 +28,11 @@ const Login = () => {
         navigate(location.state?.from || "/", { replace: true });
       })
       .catch((error) => {
-        console.error("Login error:", error);
+        if (error.code === "auth/invalid-credential") {
+          toast.error("Your email or password is incorrect. Please try again.");
+        } else {
+          toast.error(error.message);
+        }
       });
   };
 
@@ -72,7 +84,12 @@ const Login = () => {
             </>
           </>
           <p className="underline text-gray-500 hover:text-gray-700 cursor-pointer mt-2">
-            Forget Password?
+            <Link
+              to="/forgot-password"
+              state={{ ...location.state, email: emailValue }}
+            >
+              Forget Password?
+            </Link>
           </p>
           <button className="btn btn-primary mt-2">Log In</button>
         </fieldset>
@@ -80,7 +97,11 @@ const Login = () => {
 
       <p className="text-gray-500 mt-4 text-sm">
         Don't have any account?{" "}
-        <Link to="/register" state={location.state} className="text-[#8fa748]">
+        <Link
+          to="/register"
+          state={{ ...location.state, email: emailValue }}
+          className="text-[#8fa748]"
+        >
           Register
         </Link>
       </p>

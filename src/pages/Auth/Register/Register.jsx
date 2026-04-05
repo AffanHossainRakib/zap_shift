@@ -3,16 +3,26 @@ import useAuth from "../../../hooks/useAuth";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import { Link, useLocation, useNavigate } from "react-router";
 import axios from "axios";
+import { toast } from "sonner";
 
 const Register = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const prefilledEmail = location.state?.email || "";
+
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      email: prefilledEmail,
+    },
+  });
+  const emailValue = watch("email");
+
   const { registerUser, updateUserProfile } = useAuth();
-  const location = useLocation();
-  const navigate = useNavigate();
 
   const handleRegistration = (data) => {
     registerUser(data.email, data.password)
@@ -27,14 +37,14 @@ const Register = () => {
             updateUserProfile({ image: imageURL, name: data.name });
           })
           .catch((error) => {
-            console.error("Image upload error:", error);
+            toast.error("Image upload error:", error);
           });
 
         // After successful registration and profile update, navigate to the intended page
         navigate(location?.state?.from || "/", { replace: true });
       })
       .catch((error) => {
-        console.error("Registration error:", error);
+        toast.error("Registration error:", error);
       });
   };
 
@@ -85,6 +95,7 @@ const Register = () => {
               Email<span className="text-red-500">*</span>
             </label>
             <input
+              defaultValue={prefilledEmail}
               type="email"
               className="input w-full"
               placeholder="Email"
@@ -125,7 +136,11 @@ const Register = () => {
       </form>
       <p className="text-gray-500 mt-4 text-sm">
         Already have an account?{" "}
-        <Link to="/login" state={location.state} className="text-[#8fa748]">
+        <Link
+          to="/login"
+          state={{ ...location.state, email: emailValue }}
+          className="text-[#8fa748]"
+        >
           Log in
         </Link>
       </p>

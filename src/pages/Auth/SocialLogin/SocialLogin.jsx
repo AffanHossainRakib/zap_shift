@@ -1,6 +1,7 @@
 import React from "react";
 import useAuth from "../../../hooks/useAuth";
 import { useLocation, useNavigate } from "react-router";
+import { toast } from "sonner";
 
 const SocialLogin = ({ signInMethod }) => {
   const { signInwithGoogle } = useAuth();
@@ -13,7 +14,7 @@ const SocialLogin = ({ signInMethod }) => {
         navigate(location?.state?.from || "/", { replace: true });
       })
       .catch((error) => {
-        console.log("Google Sign In Error: ", error);
+        toast.error("Google Sign In Error: " + error.message);
       });
   };
   return (
