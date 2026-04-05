@@ -2,12 +2,12 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
 
 const Register = () => {
-  const { registerUser } = useAuth();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const { registerUser } = useAuth();
 
   const handleRegistration = (data) => {
     registerUser(data.email, data.password)
