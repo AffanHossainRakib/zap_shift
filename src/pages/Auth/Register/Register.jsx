@@ -34,7 +34,7 @@ const Register = () => {
   };
 
   return (
-    <div className="container mx-auto px-8 sm:px-16 py-20 sm:py-40 bg-white rounded-lg shadow-md">
+    <div className="container mx-auto px-8 sm:px-16 py-20 bg-white rounded-lg shadow-md">
       <div className="mb-6">
         <h3 className="text-3xl sm:text-5xl font-extrabold text-secondary mb-4">
           Create an Account
