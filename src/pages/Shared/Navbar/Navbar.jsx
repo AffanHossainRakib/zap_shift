@@ -22,7 +22,7 @@ const Navbar = () => {
     { to: "/coverage", label: "Coverage" },
     { to: "/about", label: "About Us" },
     { to: "/pricing", label: "Pricing" },
-    { to: "/blog", label: "Blog" },
+    { to: "/send-parcel", label: "Send a Parcel" },
     { to: "/rider", label: "Be a Rider" },
   ];
 
