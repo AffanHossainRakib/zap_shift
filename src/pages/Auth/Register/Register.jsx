@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
 import SocialLogin from "../SocialLogin/SocialLogin";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import axios from "axios";
 
 const Register = () => {
@@ -11,6 +11,8 @@ const Register = () => {
     formState: { errors },
   } = useForm();
   const { registerUser, updateUserProfile } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const handleRegistration = (data) => {
     registerUser(data.email, data.password)
@@ -27,6 +29,9 @@ const Register = () => {
           .catch((error) => {
             console.error("Image upload error:", error);
           });
+
+        // After successful registration and profile update, navigate to the intended page
+        navigate(location?.state?.from || "/", { replace: true });
       })
       .catch((error) => {
         console.error("Registration error:", error);
@@ -120,7 +125,7 @@ const Register = () => {
       </form>
       <p className="text-gray-500 mt-4 text-sm">
         Already have an account?{" "}
-        <Link to="/login" className="text-[#8fa748]">
+        <Link to="/login" state={location.state} className="text-[#8fa748]">
           Log in
         </Link>
       </p>
