@@ -3,8 +3,19 @@ import { NavLink } from "react-router";
 import PrimaryBtn from "../../../components/PrimaryBtn/PrimaryBtn";
 import SecondaryBtn from "../../../components/SecondaryBtn/SecondaryBtn";
 import { VscThreeBars } from "react-icons/vsc";
+import useAuth from "../../../hooks/useAuth";
+import { IoLogOutOutline } from "react-icons/io5";
 
 const Navbar = () => {
+  const { user, logOut } = useAuth();
+  const handleLogout = () => {
+    logOut()
+      .then()
+      .catch((error) => {
+        console.error("Logout error:", error);
+      });
+  };
+
   const navLinks = [
     { to: "/services", label: "Services" },
     { to: "/coverage", label: "Coverage" },
@@ -56,8 +67,17 @@ const Navbar = () => {
         </div>
         <div className="navbar-end">
           <div className="flex gap-2">
-            <SecondaryBtn to="/login" message="Sign In" />
-            <PrimaryBtn to="/register" message="Sign Up" />
+            {user ? (
+              <button onClick={handleLogout} className="btn btn-primary">
+                <IoLogOutOutline />
+                Logout
+              </button>
+            ) : (
+              <>
+                <SecondaryBtn to="/login" message="Sign In" />
+                <PrimaryBtn to="/register" message="Sign Up" />
+              </>
+            )}
           </div>
         </div>
       </div>
