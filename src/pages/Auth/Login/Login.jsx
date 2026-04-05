@@ -1,13 +1,15 @@
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
+import SocialLogin from "../SocialLogin/SocialLogin";
+import { Link } from "react-router";
 
 const Login = () => {
-  const { signInUser } = useAuth();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const { signInUser } = useAuth();
 
   const handleLogin = (data) => {
     signInUser(data.email, data.password)
@@ -43,9 +45,7 @@ const Login = () => {
                 required: true,
               })}
             />
-            {errors.email && (
-              <p className="text-red-500 ">This field is required</p>
-            )}
+            {errors.email && <p className="text-red-500 ">Email is required</p>}
           </>
 
           {/* Password Field */}
@@ -60,18 +60,31 @@ const Login = () => {
                 minLength: 6,
               })}
             />
-            {errors.password?.type === "required" && (
-              <p className="text-red-500">This field is required</p>
-            )}
-            {errors.password?.type === "minLength" && (
-              <p className="text-red-500">
-                Password must be at least 6 characters
-              </p>
-            )}
+            <>
+              {errors.password?.type === "required" && (
+                <p className="text-red-500">Password is required</p>
+              )}
+              {errors.password?.type === "minLength" && (
+                <p className="text-red-500">
+                  Password must be at least 6 characters
+                </p>
+              )}
+            </>
           </>
-          <button className="btn btn-primary mt-4">Log In</button>
+          <p className="underline text-gray-500 hover:text-gray-700 cursor-pointer mt-2">
+            Forget Password?
+          </p>
+          <button className="btn btn-primary mt-2">Log In</button>
         </fieldset>
       </form>
+
+      <p className="text-gray-500 mt-4 text-sm">
+        Don't have any account?{" "}
+        <Link to="/register" className="text-[#8fa748]">
+          Sign up
+        </Link>
+      </p>
+      <SocialLogin signInMethod="Login" />
     </div>
   );
 };

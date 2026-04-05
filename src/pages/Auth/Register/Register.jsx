@@ -1,5 +1,7 @@
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
+import SocialLogin from "../SocialLogin/SocialLogin";
+import { Link } from "react-router";
 
 const Register = () => {
   const {
@@ -72,6 +74,13 @@ const Register = () => {
           <button className="btn btn-primary mt-4">Register</button>
         </fieldset>
       </form>
+      <p className="text-gray-500 mt-4 text-sm">
+        Already have an account?{" "}
+        <Link to="/login" className="text-[#8fa748]">
+          Log in
+        </Link>
+      </p>
+      <SocialLogin signInMethod="Register" />
     </div>
   );
 };
