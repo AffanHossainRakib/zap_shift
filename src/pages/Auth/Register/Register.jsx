@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import { Link } from "react-router";
+import axios from "axios";
 
 const Register = () => {
   const {
@@ -9,17 +10,25 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { registerUser } = useAuth();
+  const { registerUser, updateUserProfile } = useAuth();
 
   const handleRegistration = (data) => {
     registerUser(data.email, data.password)
-      .then((userCredential) => {
-        // Registration successful
-        const user = userCredential.user;
-        console.log("User registered:", user);
+      .then(() => {
+        const formData = new FormData();
+        formData.append("image", data.picture[0]);
+        const image_upload_url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host_key}`;
+        axios
+          .post(image_upload_url, formData)
+          .then((resposne) => {
+            const imageURL = resposne.data.data.display_url;
+            updateUserProfile({ image: imageURL, name: data.name });
+          })
+          .catch((error) => {
+            console.error("Image upload error:", error);
+          });
       })
       .catch((error) => {
-        // Handle registration errors
         console.error("Registration error:", error);
       });
   };
@@ -32,11 +41,44 @@ const Register = () => {
         </h3>
         <p className="text-gray-500 text-xl">Register with ZapShift</p>
       </div>
+
       <form onSubmit={handleSubmit(handleRegistration)}>
         <fieldset className="fieldset text-sm">
+          {/* Name Field */}
+          <>
+            <label className="label">
+              Name<span className="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              className="input w-full"
+              placeholder="Name"
+              {...register("name", {
+                required: true,
+              })}
+            />
+            {errors.name && <p className="text-red-500 ">Name is required</p>}
+          </>
+
+          {/* Picture Field */}
+          <>
+            <label className="label">
+              Profile Picture{" "}
+              <span className="text-gray-500 text-xs">(Optional)</span>
+            </label>
+            <input
+              type="file"
+              className="file-input w-full"
+              placeholder="Picture URL"
+              {...register("picture")}
+            />
+          </>
+
           {/* Email Field */}
           <>
-            <label className="label">Email</label>
+            <label className="label">
+              Email<span className="text-red-500">*</span>
+            </label>
             <input
               type="email"
               className="input w-full"
@@ -50,7 +92,9 @@ const Register = () => {
 
           {/* Password Field */}
           <>
-            <label className="label">Password</label>
+            <label className="label">
+              Password<span className="text-red-500">*</span>
+            </label>
             <input
               type="password"
               className="input w-full "
