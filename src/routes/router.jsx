@@ -38,6 +38,7 @@ const router = createBrowserRouter([
             <SendParcel />
           </PrivateRoute>
         ),
+        loader: () => fetch("/warehouses.json").then((res) => res.json()),
       },
       {
         path: "rider",
