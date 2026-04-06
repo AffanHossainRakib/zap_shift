@@ -23,61 +23,74 @@ const SendParcel = () => {
       </p>
 
       {/* Parcel details form */}
-      <div>
-        <form onSubmit={handleSubmit(handleParcelSubmit)}>
-          <fieldset className="fieldset text-sm">
-            {/* Radio Buttons */}
-
-            <div className="flex gap-4">
-              <span>
-                <input
-                  type="radio"
-                  name="parcelType"
-                  className="radio mr-1"
-                  id="document"
-                  value="document"
-                  {...register("parcelType", { required: true })}
-                />
-                <label className="label" htmlFor="document">
-                  Document
-                </label>
-              </span>
-
-              <span>
-                <input
-                  type="radio"
-                  name="parcelType"
-                  className="radio mr-1"
-                  id="non-document"
-                  value="non-document"
-                  {...register("parcelType", { required: true })}
-                />
-                <label className="label" htmlFor="non-document">
-                  Non-Document
-                </label>
-              </span>
-            </div>
-
-            {/* Email Field */}
-            <>
-              <label className="label">Email</label>
+      <form onSubmit={handleSubmit(handleParcelSubmit)}>
+        <fieldset className="fieldset my-4 border-y border-gray-200 py-4 ">
+          {/* Parcel Type Radio Buttons */}
+          <fieldset className="fieldset flex justify-start gap-6 ">
+            <label className="radio-label">
               <input
-                type="email"
+                type="radio"
+                className="radio radio-secondary"
+                value="Document"
+                {...register("parcelType", { required: true })}
+                defaultChecked
+              />
+              <span className="ml-2 text-sm">Document</span>
+            </label>
+
+            <label className="radio-label">
+              <input
+                type="radio"
+                className="radio radio-secondary"
+                value="Non-Document"
+                {...register("parcelType", { required: true })}
+              />
+              <span className="ml-2 text-sm">Non-Document</span>
+            </label>
+          </fieldset>
+
+          {/* Parcel Information */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Parcel Name */}
+            <fieldset className="fieldset">
+              <label className="label">Parcel Name</label>
+              <input
+                type="text"
                 className="input w-full"
-                placeholder="Email"
-                {...register("email", {
+                placeholder="Parcel Name"
+                {...register("parcelName", {
                   required: true,
                 })}
               />
-              {errors.email && (
-                <p className="text-red-500 ">Email is required</p>
+              {errors.parcelName && (
+                <p className="text-red-500 ">Parcel Name is required</p>
               )}
-            </>
+            </fieldset>
 
-            <button className="btn btn-primary mt-2">Send Parcel</button>
-          </fieldset>
-        </form>
-      </div>
+            {/* Parcel Weight */}
+            <fieldset className="fieldset">
+              <label className="label">Parcel Weight (kg)</label>
+              <input
+                type="number"
+                step="any"
+                className="input w-full"
+                placeholder="Parcel Weight"
+                {...register("parcelWeight", {
+                  required: true,
+                  min: 0,
+                })}
+              />
+              {errors.parcelWeight && (
+                <p className="text-red-500 ">Parcel Weight is required</p>
+              )}
+            </fieldset>
+          </div>
+        </fieldset>
+
+        <button className="btn btn-primary" type="submit">
+          Proceed to Confirm Booking
+        </button>
+      </form>
     </section>
   );
 };
