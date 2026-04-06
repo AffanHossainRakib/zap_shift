@@ -5,6 +5,7 @@ import { useLoaderData } from "react-router";
 const SendParcel = () => {
   const {
     register,
+    resetField,
     handleSubmit,
     control,
     formState: { errors },
@@ -25,7 +26,34 @@ const SendParcel = () => {
   };
 
   const handleParcelSubmit = (data) => {
-    console.log("Parcel details submitted:", data);
+    const parcelType = data.parcelType;
+    const parcelWeight = parseFloat(data.parcelWeight);
+    const senderDistrict = data.senderDistrict;
+    const receiverDistrict = data.receiverDistrict;
+
+    let cost = 0;
+
+    if (parcelType === "Document") {
+      if (senderDistrict === receiverDistrict) {
+        cost += 60;
+      } else {
+        cost += 80;
+      }
+    } else {
+      if (parcelWeight <= 3) {
+        if (senderDistrict === receiverDistrict) {
+          cost += 110;
+        } else {
+          cost += 150;
+        }
+      } else {
+        if (senderDistrict === receiverDistrict) {
+          cost += 110 + (parcelWeight - 3) * 40;
+        } else {
+          cost += 150 + (parcelWeight - 3) * 40 + 40;
+        }
+      }
+    }
   };
 
   return (
@@ -150,7 +178,11 @@ const SendParcel = () => {
             <label className="label">Sender Region *</label>
             <select
               className="select select-bordered w-full"
-              {...register("senderRegion", { required: true })}
+              {...register("senderRegion", {
+                required: true,
+                onChange: () =>
+                  resetField("senderDistrict", { defaultValue: "" }),
+              })}
               defaultValue=""
             >
               <option value="" disabled>
@@ -251,7 +283,11 @@ const SendParcel = () => {
             <label className="label">Receiver Region *</label>
             <select
               className="select select-bordered w-full"
-              {...register("receiverRegion", { required: true })}
+              {...register("receiverRegion", {
+                required: true,
+                onChange: () =>
+                  resetField("receiverDistrict", { defaultValue: "" }),
+              })}
               defaultValue=""
             >
               <option value="" disabled>
