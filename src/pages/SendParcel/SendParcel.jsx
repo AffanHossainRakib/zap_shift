@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { useLoaderData } from "react-router";
+import Swal from "sweetalert2";
 
 const SendParcel = () => {
   const {
@@ -54,6 +55,50 @@ const SendParcel = () => {
         }
       }
     }
+
+    const formattedCost = new Intl.NumberFormat("en-BD").format(cost);
+
+    Swal.fire({
+      title: "Confirm Your Booking",
+      html: `
+        <div class="mt-2 grid gap-1.5 text-left text-slate-700">
+          <p><strong>Type:</strong> ${parcelType}</p>
+          <p><strong>Route:</strong> ${senderDistrict} to ${receiverDistrict}</p>
+          <p><strong>Weight:</strong> ${parcelWeight} kg</p>
+          <div class="mt-2 rounded-xl bg-primary px-4 py-2 font-bold text-secondary">Estimated Cost: BDT ${formattedCost}</div>
+        </div>  
+      `,
+      icon: "info",
+      showCancelButton: true,
+      confirmButtonText: "Confirm Booking",
+      cancelButtonText: "Edit Details",
+      reverseButtons: true,
+      buttonsStyling: false,
+      customClass: {
+        popup: "rounded-2xl border border-slate-200 px-5 py-6",
+        title: "font-extrabold text-secondary",
+        htmlContainer: "text-slate-700",
+        confirmButton:
+          "rounded-xl border-0 bg-secondary px-4 py-2.5 font-bold text-white transition hover:brightness-110 ml-2",
+        cancelButton:
+          "rounded-xl border-0 bg-slate-200 px-4 py-2.5 font-bold text-secondary",
+      },
+    }).then((result) => {
+      if (result.isConfirmed)
+        Swal.fire({
+          title: "Booking Confirmed",
+          text: "Your parcel request has been placed successfully.",
+          icon: "success",
+          confirmButtonText: "Great",
+          buttonsStyling: false,
+          customClass: {
+            popup: "rounded-2xl border border-slate-200 px-5 py-6",
+            title: "font-extrabold text-secondary",
+            confirmButton:
+              "rounded-xl border-0 bg-secondary px-4 py-2.5 font-bold text-white transition hover:brightness-110",
+          },
+        });
+    });
   };
 
   return (
