@@ -65,7 +65,7 @@ const SendParcel = () => {
           {/* Parcel Information */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <fieldset className="fieldset">
-              <label className="label">Parcel Name</label>
+              <label className="label">Parcel Name *</label>
               <input
                 type="text"
                 className="input w-full"
@@ -78,7 +78,7 @@ const SendParcel = () => {
             </fieldset>
 
             <fieldset className="fieldset">
-              <label className="label">Parcel Weight (kg)</label>
+              <label className="label">Parcel Weight (kg) *</label>
               <input
                 type="number"
                 step="any"
@@ -97,7 +97,7 @@ const SendParcel = () => {
           {/* Sender Details */}
           <fieldset className="fieldset ">
             <h4 className="text-lg sm:text-xl font-bold">Sender Details</h4>
-            <label className="label">Sender Name</label>
+            <label className="label">Sender Name *</label>
             <input
               type="text"
               className="input w-full"
@@ -108,7 +108,7 @@ const SendParcel = () => {
               <p className="text-red-500">Sender Name is required</p>
             )}
 
-            <label className="label">Sender Email</label>
+            <label className="label">Sender Email *</label>
             <input
               type="email"
               className="input w-full"
@@ -122,7 +122,7 @@ const SendParcel = () => {
               <p className="text-red-500">Valid Sender Email is required</p>
             )}
 
-            <label className="label">Sender Address</label>
+            <label className="label">Sender Address *</label>
             <input
               type="text"
               className="input w-full"
@@ -133,7 +133,7 @@ const SendParcel = () => {
               <p className="text-red-500">Sender Address is required</p>
             )}
 
-            <label className="label">Sender Phone</label>
+            <label className="label">Sender Phone *</label>
             <input
               type="tel"
               className="input w-full"
@@ -147,13 +147,15 @@ const SendParcel = () => {
               <p className="text-red-500">Valid Sender Phone is required</p>
             )}
 
-            <label className="label">Sender Region</label>
+            <label className="label">Sender Region *</label>
             <select
               className="select select-bordered w-full"
               {...register("senderRegion", { required: true })}
-              defaultValue="Select Region"
+              defaultValue=""
             >
-              <option disabled>Select Region</option>
+              <option value="" disabled>
+                Select Region
+              </option>
               {regions.map((region) => (
                 <option key={region} value={region}>
                   {region}
@@ -164,7 +166,7 @@ const SendParcel = () => {
               <p className="text-red-500">Sender Region is required</p>
             )}
 
-            <label className="label">Sender District</label>
+            <label className="label">Sender District *</label>
             <select
               className="select select-bordered w-full"
               {...register("senderDistrict", { required: true })}
@@ -184,7 +186,7 @@ const SendParcel = () => {
               <p className="text-red-500">Sender District is required</p>
             )}
 
-            <label className="label">Pickup Instructions</label>
+            <label className="label">Pickup Instructions (Optional)</label>
             <textarea
               className="textarea textarea-bordered w-full"
               placeholder="Pickup Instructions"
@@ -196,7 +198,7 @@ const SendParcel = () => {
           <fieldset className="fieldset">
             <h4 className="text-lg sm:text-xl font-bold">Receiver Details</h4>
 
-            <label className="label">Receiver Name</label>
+            <label className="label">Receiver Name *</label>
             <input
               type="text"
               className="input w-full"
@@ -207,7 +209,7 @@ const SendParcel = () => {
               <p className="text-red-500">Receiver Name is required</p>
             )}
 
-            <label className="label">Receiver Email</label>
+            <label className="label">Receiver Email *</label>
             <input
               type="email"
               className="input w-full"
@@ -221,7 +223,7 @@ const SendParcel = () => {
               <p className="text-red-500">Valid Receiver Email is required</p>
             )}
 
-            <label className="label">Receiver Address</label>
+            <label className="label">Receiver Address *</label>
             <input
               type="text"
               className="input w-full"
@@ -232,7 +234,7 @@ const SendParcel = () => {
               <p className="text-red-500">Receiver Address is required</p>
             )}
 
-            <label className="label">Receiver Phone</label>
+            <label className="label">Receiver Phone *</label>
             <input
               type="tel"
               className="input w-full"
@@ -246,13 +248,15 @@ const SendParcel = () => {
               <p className="text-red-500">Valid Receiver Phone is required</p>
             )}
 
-            <label className="label">Receiver Region</label>
+            <label className="label">Receiver Region *</label>
             <select
               className="select select-bordered w-full"
               {...register("receiverRegion", { required: true })}
-              defaultValue="Select Region"
+              defaultValue=""
             >
-              <option disabled>Select Region</option>
+              <option value="" disabled>
+                Select Region
+              </option>
               {regions.map((region) => (
                 <option key={region} value={region}>
                   {region}
@@ -263,7 +267,7 @@ const SendParcel = () => {
               <p className="text-red-500">Receiver Region is required</p>
             )}
 
-            <label className="label">Receiver District</label>
+            <label className="label">Receiver District *</label>
             <select
               className="select select-bordered w-full"
               {...register("receiverDistrict", { required: true })}
@@ -283,7 +287,7 @@ const SendParcel = () => {
               <p className="text-red-500">Receiver District is required</p>
             )}
 
-            <label className="label">Delivery Instructions</label>
+            <label className="label">Delivery Instructions (Optional)</label>
             <textarea
               className="textarea textarea-bordered w-full"
               placeholder="Delivery Instructions"
