@@ -1,5 +1,5 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { Link, useLocation } from "react-router";
 import useAuth from "../../../hooks/useAuth";
 import { toast } from "sonner";
@@ -8,13 +8,13 @@ const ForgotPassword = () => {
   const {
     register,
     handleSubmit,
-    watch,
+    control,
     formState: { errors },
   } = useForm();
   const location = useLocation();
   const { passwordResetEmail } = useAuth();
   const prefilledEmail = location.state?.email || "";
-  const emailValue = watch("email");
+  const emailValue = useWatch({ control, name: "email" });
 
   const handleForgotPassword = (data) => {
     passwordResetEmail(data.email)

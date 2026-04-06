@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import { Link, Navigate, useLocation, useNavigate } from "react-router";
@@ -14,14 +14,14 @@ const Register = () => {
   const {
     register,
     handleSubmit,
-    watch,
+    control,
     formState: { errors },
   } = useForm({
     defaultValues: {
       email: prefilledEmail,
     },
   });
-  const emailValue = watch("email");
+  const emailValue = useWatch({ control, name: "email" });
 
   const { registerUser, updateUserProfile, user } = useAuth();
 
