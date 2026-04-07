@@ -6,6 +6,7 @@ import { FiEdit } from "react-icons/fi";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { FaRegTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { Link } from "react-router";
 
 const MyParcels = () => {
   const { user } = useAuth();
@@ -71,6 +72,7 @@ const MyParcels = () => {
               <th>Parcel Name</th>
               <th>Cost</th>
               <th>Payment Status</th>
+              <th>Delivery Status</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -80,7 +82,20 @@ const MyParcels = () => {
                 <th>{index + 1}</th>
                 <td>{parcel.parcelName}</td>
                 <td>{parcel.cost}</td>
-                <td>Pending</td>
+                <td>
+                  {parcel.paymentStatus ? (
+                    <button className="btn btn-sm btn-success " disabled>
+                      Paid
+                    </button>
+                  ) : (
+                    <button className="btn btn-sm btn-primary">
+                      <Link to={`/dashboard/payment/${parcel._id}`}>
+                        Pay Now
+                      </Link>
+                    </button>
+                  )}
+                </td>
+                <td>{parcel.deliveryStatus ? "Delivered" : "In Transit"}</td>
                 <td className="flex gap-1">
                   <button className="btn btn-square hover:bg-primary">
                     <FiEdit />
