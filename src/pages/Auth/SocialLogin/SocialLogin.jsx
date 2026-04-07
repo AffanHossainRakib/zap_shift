@@ -21,7 +21,7 @@ const SocialLogin = ({ signInMethod }) => {
     <div className="flex flex-col justify-center items-center mt-4">
       <p>OR</p>
       <button
-        class="btn bg-white text-black border-[#e5e5e5] w-full"
+        className="btn bg-white text-black border-[#e5e5e5] w-full"
         onClick={handleGoogleSignIn}
       >
         <svg
