@@ -22,8 +22,12 @@ const Navbar = () => {
     { to: "/coverage", label: "Coverage" },
     { to: "/about", label: "About Us" },
     { to: "/pricing", label: "Pricing" },
-    { to: "/send-parcel", label: "Send a Parcel" },
     { to: "/rider", label: "Be a Rider" },
+    { to: "/send-parcel", label: "Send a Parcel" },
+  ];
+
+  const protectedNavLinks = [
+    { to: "/dashboard/my-parcels", label: "My Parcels" },
   ];
 
   const links = (
@@ -42,8 +46,25 @@ const Navbar = () => {
           </NavLink>
         </li>
       ))}
+
+      {user &&
+        protectedNavLinks.map(({ to, label }) => (
+          <li key={label}>
+            <NavLink
+              to={to}
+              className={({ isActive }) =>
+                isActive
+                  ? "bg-primary text-primary-content rounded px-4 py-2"
+                  : ""
+              }
+            >
+              {label}
+            </NavLink>
+          </li>
+        ))}
     </>
   );
+
   return (
     <div className="sticky top-4 z-500 container mx-auto px-4">
       <div className="navbar bg-white shadow-sm rounded-lg">
