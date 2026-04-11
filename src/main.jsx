@@ -16,7 +16,7 @@ createRoot(document.getElementById("root")).render(
       <AuthProvider>
         <RouterProvider router={router} />
         <Toaster
-          position="top-right"
+          position="bottom-right"
           richColors
           expand
           toastOptions={{

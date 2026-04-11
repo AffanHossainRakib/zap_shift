@@ -4,15 +4,21 @@ import LoadingPage from "../pages/Shared/LoadingPage/LoadingPage";
 import { Navigate, useLocation } from "react-router";
 
 const PrivateRoute = ({ children }) => {
-  const { user, laoding } = useAuth();
+  const { user, loading } = useAuth();
   const location = useLocation();
 
-  if (laoding) {
+  if (loading) {
     return <LoadingPage />;
   }
 
   if (!user) {
-    return <Navigate state={{ from: location.pathname }} to="/login" replace />;
+    return (
+      <Navigate
+        state={{ from: location.pathname + location.search }}
+        to="/login"
+        replace
+      />
+    );
   }
 
   return children;

@@ -7,6 +7,7 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 import { FaRegTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { Link } from "react-router";
+import { toast } from "sonner";
 
 const MyParcels = () => {
   const { user } = useAuth();
@@ -38,7 +39,7 @@ const MyParcels = () => {
       },
     }).then((result) => {
       if (result.isConfirmed)
-        axiosSecure.delete(`/parcels/${id}`).then((res) => {
+        axiosSecure.delete(`/parcels/${id}`).then(() => {
           refetch();
           Swal.fire({
             title: "Parcel Deleted",
@@ -57,6 +58,25 @@ const MyParcels = () => {
     });
   };
 
+  const handlePayment = async (parcel) => {
+    if (!parcel?._id) return;
+
+    const paymentInfo = {
+      parcelId: parcel._id,
+      parcelName: parcel.parcelName,
+      cost: parcel.cost,
+      senderEmail: parcel.senderEmail,
+    };
+    try {
+      const res = await axiosSecure.post(
+        "/create-checkout-session",
+        paymentInfo,
+      );
+      window.location.assign(res.data.url); // Redirect to Stripe checkout
+    } catch (error) {
+      toast.error("Error creating checkout session:", error);
+    }
+  };
   return (
     <div className="my-10 mx-5 bg-white p-5 sm:p-10 rounded-3xl shadow-lg">
       <h2 className="text-xl sm:text-2xl mb-10 text-secondary font-bold">
@@ -88,10 +108,14 @@ const MyParcels = () => {
                       Paid
                     </button>
                   ) : (
-                    <button className="btn btn-sm btn-primary">
-                      <Link to={`/dashboard/payment/${parcel._id}`}>
+                    <button
+                      onClick={() => handlePayment(parcel)}
+                      className="btn btn-sm btn-primary"
+                    >
+                      {/* <Link to={`/dashboard/payment/${parcel._id}`}>
                         Pay Now
-                      </Link>
+                      </Link> */}
+                      Pay Now
                     </button>
                   )}
                 </td>
