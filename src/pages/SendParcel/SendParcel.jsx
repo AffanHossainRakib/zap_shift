@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm, useWatch } from "react-hook-form";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
@@ -16,6 +16,7 @@ const SendParcel = () => {
 
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
 
   const warehouses = useLoaderData();
   const regionsDuplicate = warehouses.map((warehouse) => warehouse.region);
@@ -90,20 +91,22 @@ const SendParcel = () => {
       },
     }).then((result) => {
       if (result.isConfirmed)
-        axiosSecure.post("/parcels", { ...data, cost }).then((res) => {
-          Swal.fire({
-            title: "Booking Confirmed",
-            html: `<div class="mt-2 text-slate-700">Your parcel request has been placed successfully. Your parcel ID is <span class="font-bold text-secondary">${res.data.insertedId}</span>. Use this ID to track your parcel. </div>`,
-            icon: "success",
-            confirmButtonText: "Great",
-            buttonsStyling: false,
-            customClass: {
-              popup: "rounded-2xl border border-slate-200 px-5 py-6",
-              title: "font-extrabold text-secondary",
-              confirmButton:
-                "rounded-xl border-0 bg-secondary px-4 py-2.5 font-bold text-white transition hover:brightness-110",
-            },
-          });
+        axiosSecure.post("/parcels", { ...data, cost }).then(() => {
+          navigate("/dashboard/my-parcels").then(
+            Swal.fire({
+              title: "Booking Confirmed",
+              html: `<div class="mt-2 text-slate-700">Your parcel request has been placed successfully. You can make the payment now. </div>`,
+              icon: "success",
+              confirmButtonText: "Great",
+              buttonsStyling: false,
+              customClass: {
+                popup: "rounded-2xl border border-slate-200 px-5 py-6",
+                title: "font-extrabold text-secondary",
+                confirmButton:
+                  "rounded-xl border-0 bg-secondary px-4 py-2.5 font-bold text-white transition hover:brightness-110",
+              },
+            }),
+          );
         });
     });
   };
@@ -191,6 +194,7 @@ const SendParcel = () => {
 
             <label className="label">Sender Email *</label>
             <input
+              disabled
               type="email"
               className="input w-full"
               placeholder="Sender Email"
