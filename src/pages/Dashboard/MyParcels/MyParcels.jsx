@@ -23,11 +23,11 @@ const MyParcels = () => {
 
   const handleDelete = (id) => {
     Swal.fire({
-      title: "Are you sure you want to delete this parcel?",
+      title: `You are deleting ${myParcels.find((p) => p._id === id)?.parcelName} parcel!`,
       icon: "warning",
       showCancelButton: true,
-      confirmButtonText: "Delete Parcel",
-      cancelButtonText: "I will keep it",
+      confirmButtonText: "Delete",
+      cancelButtonText: "Keep it",
       reverseButtons: true,
       buttonsStyling: false,
       customClass: {
@@ -43,7 +43,7 @@ const MyParcels = () => {
           refetch();
           Swal.fire({
             title: "Parcel Deleted",
-            html: `<div class="mt-2 text-slate-700">Your parcel has been deleted successfully. </div>`,
+            html: `<div class="mt-2 text-slate-700">${myParcels.find((p) => p._id === id)?.parcelName} has been deleted successfully. </div>`,
             icon: "success",
             confirmButtonText: "Great",
             buttonsStyling: false,

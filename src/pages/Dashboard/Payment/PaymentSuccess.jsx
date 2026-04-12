@@ -13,14 +13,14 @@ const PaymentSuccess = () => {
       axiosSecure
         .patch(`/payment-success?sessionId=${sessionId}`)
         .then((res) => {
-          toast.log("Payment success response:", res.data);
+          toast.success(`Payment success response: ${res.data}`);
         })
         .catch((error) => {
           toast.error("Error verifying payment success:", error);
         });
     }
   }, [axiosSecure, sessionId]);
-  toast.log("Checkout Session ID:", sessionId);
+  toast.success(`Checkout Session ID: ${sessionId}`);
   return (
     <div className="h-[calc(100vh-64px)] flex items-center justify-center">
       <p className="text-3xl text-secondary-content-content font-bold text-center">
