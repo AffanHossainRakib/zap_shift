@@ -84,27 +84,32 @@ const MyParcels = () => {
       </h2>
 
       <div className="overflow-x-auto">
-        <table className="table table-zebra bg-secondary/10 w-full">
-          {/* head */}
+        <table className="table table-zebra bg-secondary/10 w-full border-separate border-spacing-0">
           <thead className="bg-secondary text-white">
-            <tr>
-              <th>SL. </th>
+            <tr className="[&>th]:text-center">
+              <th className="rounded-tl-xl">SL.</th>
               <th>Parcel Name</th>
               <th>Cost</th>
               <th>Payment Status</th>
               <th>Delivery Status</th>
-              <th>Action</th>
+              <th className="rounded-tr-xl">Action</th>
             </tr>
           </thead>
           <tbody>
             {myParcels.map((parcel, index) => (
-              <tr key={parcel._id}>
-                <th>{index + 1}</th>
+              <tr key={parcel._id} className="[&>td]:text-center">
+                <td
+                  className={
+                    index === myParcels.length - 1 ? "rounded-bl-xl" : ""
+                  }
+                >
+                  {index + 1}
+                </td>
                 <td>{parcel.parcelName}</td>
                 <td>{parcel.cost}</td>
-                <td>
+                <td className="text-center">
                   {parcel.paymentStatus ? (
-                    <button className="btn btn-sm btn-success " disabled>
+                    <button className="btn btn-sm btn-success" disabled>
                       Paid
                     </button>
                   ) : (
@@ -112,27 +117,30 @@ const MyParcels = () => {
                       onClick={() => handlePayment(parcel)}
                       className="btn btn-sm btn-primary"
                     >
-                      {/* <Link to={`/dashboard/payment/${parcel._id}`}>
-                        Pay Now
-                      </Link> */}
                       Pay Now
                     </button>
                   )}
                 </td>
                 <td>{parcel.deliveryStatus ? "Delivered" : "In Transit"}</td>
-                <td className="flex gap-1">
-                  <button className="btn btn-square hover:bg-primary">
-                    <FiEdit />
-                  </button>
-                  <button className="btn btn-square hover:bg-primary">
-                    <FaMagnifyingGlass />
-                  </button>
-                  <button
-                    onClick={() => handleDelete(parcel._id)}
-                    className="btn btn-square hover:bg-primary"
-                  >
-                    <FaRegTrashAlt />
-                  </button>
+                <td
+                  className={
+                    index === myParcels.length - 1 ? "rounded-br-xl" : ""
+                  }
+                >
+                  <div className="flex gap-1 items-center justify-center">
+                    <button className="btn btn-square hover:bg-primary">
+                      <FiEdit />
+                    </button>
+                    <button className="btn btn-square hover:bg-primary">
+                      <FaMagnifyingGlass />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(parcel._id)}
+                      className="btn btn-square hover:bg-primary"
+                    >
+                      <FaRegTrashAlt />
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}
