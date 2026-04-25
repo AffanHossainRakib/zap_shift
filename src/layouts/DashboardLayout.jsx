@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink, Outlet } from "react-router";
 import { TbHome, TbTruckDelivery } from "react-icons/tb";
 import Logo from "../components/Logo/Logo";
+import { FaRegCreditCard } from "react-icons/fa6";
 
 const DashboardLayout = () => {
   const isBtnActive = (isActive) => {
@@ -18,6 +19,11 @@ const DashboardLayout = () => {
       to: "/dashboard/my-parcels",
       label: "My Parcels",
       Icon: TbTruckDelivery,
+    },
+    {
+      to: "/dashboard/payment-history",
+      label: "Payment History",
+      Icon: FaRegCreditCard,
     },
   ];
 
