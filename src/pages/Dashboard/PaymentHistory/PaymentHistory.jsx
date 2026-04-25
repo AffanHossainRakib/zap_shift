@@ -34,7 +34,7 @@ const PaymentHistory = () => {
               <th>Cost</th>
               <th>Tracking ID</th>
               <th>Transaction ID</th>
-              <th>Payment Date</th>
+              <th className="rounded-tr-xl">Payment Date</th>
             </tr>
           </thead>
           <tbody>
@@ -51,7 +51,13 @@ const PaymentHistory = () => {
                 <td>{parcel.amount} (Paid)</td>
                 <td>{parcel.trackingId}</td>
                 <td>{parcel.transactionId}</td>
-                <td>{new Date(parcel.createdAt).toLocaleDateString()}</td>
+                <td
+                  className={
+                    index === payments.length - 1 ? "rounded-br-xl" : ""
+                  }
+                >
+                  {new Date(parcel.createdAt).toLocaleDateString()}
+                </td>
               </tr>
             ))}
           </tbody>
