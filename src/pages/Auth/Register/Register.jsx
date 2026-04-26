@@ -5,6 +5,7 @@ import { Link, Navigate, useLocation, useNavigate } from "react-router";
 import axios from "axios";
 import { toast } from "sonner";
 import LoadingPage from "../../Shared/LoadingPage/LoadingPage";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -24,29 +25,47 @@ const Register = () => {
   const emailValue = useWatch({ control, name: "email" });
 
   const { registerUser, updateUserProfile, user } = useAuth();
+  const axiosSecure = useAxiosSecure();
 
-  const handleRegistration = (data) => {
-    registerUser(data.email, data.password)
-      .then(() => {
+  const handleRegistration = async (data) => {
+    if (!data.name) {
+      toast.error("Name is required");
+      return;
+    }
+
+    try {
+      const result = await registerUser(data.email, data.password);
+      const createdUser = result.user;
+
+      let imageURL = "";
+
+      if (data.picture && data.picture.length > 0) {
         const formData = new FormData();
         formData.append("image", data.picture[0]);
-        const image_upload_url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host_key}`;
-        axios
-          .post(image_upload_url, formData)
-          .then((resposne) => {
-            const imageURL = resposne.data.data.display_url;
-            updateUserProfile({ image: imageURL, name: data.name });
-          })
-          .catch((error) => {
-            toast.error("Image upload error:", error);
-          });
 
-        // After successful registration and profile update, navigate to the intended page
-        navigate(location?.state?.from || "/", { replace: true });
-      })
-      .catch((error) => {
-        toast.error("Registration error:", error);
+        const res = await axios.post(
+          `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host_key}`,
+          formData,
+        );
+
+        imageURL = res.data.data.display_url;
+      }
+
+      await updateUserProfile({
+        name: data.name,
+        image: imageURL || undefined,
       });
+
+      await axiosSecure.post("/user", {
+        name: data.name,
+        email: createdUser.email,
+        imageURL: imageURL,
+      });
+
+      navigate(location?.state?.from || "/", { replace: true });
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   if (user) {
