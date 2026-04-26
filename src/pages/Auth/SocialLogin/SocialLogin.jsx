@@ -1,21 +1,29 @@
-import React from "react";
+import React, { use } from "react";
 import useAuth from "../../../hooks/useAuth";
 import { useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const SocialLogin = ({ signInMethod }) => {
   const { signInwithGoogle } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
 
-  const handleGoogleSignIn = () => {
-    signInwithGoogle()
-      .then(() => {
-        navigate(location?.state?.from || "/", { replace: true });
-      })
-      .catch((error) => {
-        toast.error("Google Sign In Error: " + error.message);
+  const handleGoogleSignIn = async () => {
+    try {
+      const user = await signInwithGoogle();
+
+      await axiosSecure.post("/user", {
+        name: user?.user?.displayName,
+        email: user?.user?.email,
+        imageURL: user?.user?.photoURL,
       });
+
+      navigate(location?.state?.from || "/", { replace: true });
+    } catch (error) {
+      toast.error("Google Sign In Error: " + error.message);
+    }
   };
   return (
     <div className="flex flex-col justify-center items-center mt-4">
