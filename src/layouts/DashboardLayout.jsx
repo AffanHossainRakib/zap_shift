@@ -3,6 +3,7 @@ import { NavLink, Outlet } from "react-router";
 import { TbHome, TbTruckDelivery } from "react-icons/tb";
 import Logo from "../components/Logo/Logo";
 import { FaMotorcycle, FaRegCreditCard } from "react-icons/fa6";
+import { FaUserCircle } from "react-icons/fa";
 
 const DashboardLayout = () => {
   const isBtnActive = (isActive) => {
@@ -29,6 +30,11 @@ const DashboardLayout = () => {
       to: "/dashboard/approve-riders",
       label: "Approve Riders",
       Icon: FaMotorcycle,
+    },
+    {
+      to: "/dashboard/user-management",
+      label: "User Management",
+      Icon: FaUserCircle,
     },
   ];
 
