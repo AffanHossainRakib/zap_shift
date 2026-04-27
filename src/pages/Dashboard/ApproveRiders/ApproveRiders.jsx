@@ -87,10 +87,7 @@ const ApproveRiders = () => {
                     >
                       <IoPersonRemoveSharp />
                     </button>
-                    <button
-                      onClick={() => handleDelete(rider._id)}
-                      className="btn btn-square hover:bg-primary"
-                    >
+                    <button className="btn btn-square hover:bg-primary">
                       <FaRegTrashAlt />
                     </button>
                   </div>
